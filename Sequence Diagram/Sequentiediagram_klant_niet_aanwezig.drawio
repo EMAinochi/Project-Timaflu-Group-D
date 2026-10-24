@@ -1,0 +1,177 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="klant-niet-aanwezig" name="Klant niet aanwezig">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1320" pageHeight="1720" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Sequentiediagram: klant niet aanwezig bij de levering" style="text;html=1;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="210" y="8" width="900" height="32" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ll-koerier" value="Koerier" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=48;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="210" y="52" width="150" height="1580" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll-systeem" value="Systeem" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=48;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="490" y="52" width="150" height="1580" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll-klant" value="Klant" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=48;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="770" y="52" width="140" height="1580" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll-verkoop" value="Verkoopmedewerker" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=48;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="52" width="200" height="1580" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="note-afwezig" value="Bij het adres is niemand aanwezig." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="16" y="248" width="180" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="note-tweede" value="Tweede poging, dezelfde dag." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="16" y="820" width="180" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="note-terug" value="De koerier neemt de bestelling mee terug naar de distributiehoek." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="16" y="1120" width="180" height="88" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="alt" value="" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#666666;movable=0;" vertex="1" parent="1">
+          <mxGeometry x="190" y="820" width="1080" height="750" as="geometry"/>
+        </mxCell>
+        <mxCell id="alt-label" value="alt" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="190" y="820" width="46" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="guard-aanwezig" value="[klant is aanwezig]" style="text;html=1;fontSize=12;fontStyle=2;align=left;" vertex="1" parent="1">
+          <mxGeometry x="250" y="832" width="220" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="alt-divider" value="" style="endArrow=none;dashed=1;html=1;strokeColor=#666666;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="1060" as="sourcePoint"/>
+            <mxPoint x="1270" y="1060" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guard-afwezig" value="[klant is opnieuw niet aanwezig]" style="text;html=1;fontSize=12;fontStyle=2;align=left;" vertex="1" parent="1">
+          <mxGeometry x="250" y="1072" width="280" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="m1" value="vraagRooster(datum)" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="160" as="sourcePoint"/>
+            <mxPoint x="565" y="160" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="rooster: tijd, klantnaam, adres,&lt;br&gt;telefoonnummer, contactpersoon" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="230" as="sourcePoint"/>
+            <mxPoint x="285" y="230" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="zoekTelefoonnummer(bestelling)" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="340" as="sourcePoint"/>
+            <mxPoint x="565" y="340" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="telefoonnummer en contactpersoon" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="400" as="sourcePoint"/>
+            <mxPoint x="285" y="400" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" value="belt de klant" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="470" as="sourcePoint"/>
+            <mxPoint x="840" y="470" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" value="geen gehoor" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="840" y="530" as="sourcePoint"/>
+            <mxPoint x="285" y="530" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" value="markeerNietAanwezig(bestelling)" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="600" as="sourcePoint"/>
+            <mxPoint x="565" y="600" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="pasRoosterAan()" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="650" as="sourcePoint"/>
+            <mxPoint x="565" y="710" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="680" y="650"/>
+              <mxPoint x="680" y="710"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="bijgewerkt rooster, latere stop" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="760" as="sourcePoint"/>
+            <mxPoint x="285" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m10" value="levert de bestelling, klant tekent" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="880" as="sourcePoint"/>
+            <mxPoint x="840" y="880" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="markeerAfgeleverd(bestelling)" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="950" as="sourcePoint"/>
+            <mxPoint x="565" y="950" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m12" value="status = afgeleverd" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="1010" as="sourcePoint"/>
+            <mxPoint x="285" y="1010" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m13" value="markeerNietAfgeleverd(bestelling)" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="1160" as="sourcePoint"/>
+            <mxPoint x="565" y="1160" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="toont de bestelling als niet afgeleverd" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="1230" as="sourcePoint"/>
+            <mxPoint x="1140" y="1230" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m15" value="spreekt een nieuw levermoment af" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="1300" as="sourcePoint"/>
+            <mxPoint x="840" y="1300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m16" value="datum en dagdeel" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="840" y="1360" as="sourcePoint"/>
+            <mxPoint x="1140" y="1360" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m17" value="slaLevermomentOp(datum, dagdeel)" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="1430" as="sourcePoint"/>
+            <mxPoint x="565" y="1430" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m18" value="koppelExtraKosten(bedrag, uitleg)" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="1490" as="sourcePoint"/>
+            <mxPoint x="565" y="1490" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m19" value="bestelling bijgewerkt" style="html=1;fontSize=12;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="565" y="1550" as="sourcePoint"/>
+            <mxPoint x="1140" y="1550" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
