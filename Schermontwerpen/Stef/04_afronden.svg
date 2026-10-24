@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="800" viewBox="0 0 390 800">
+<rect width="390" height="800" fill="#fff"/>
+<rect x="0" y="0" width="390" height="52" rx="0" fill="#111" stroke="#111" stroke-width="0"/>
+<text x="16" y="33" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#fff">Timaflu</text>
+<text x="96" y="33" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#ddd">Verkoop</text>
+<text x="16" y="88" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#111">Afronden</text>
+<text x="16" y="114" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">Leverdatum, dagdeel en spoed.</text>
+<text x="16" y="134" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">Resultaat blijft op dit scherm.</text>
+<line x1="16" y1="160" x2="374" y2="160" stroke="#ddd" stroke-width="1.5"/>
+<text x="16" y="184" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#111">Leverdatum</text>
+<rect x="16" y="192" width="358" height="36" rx="0" fill="#fafafa" stroke="#222" stroke-width="1.5"/>
+<text x="26" y="215" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#333">dd-mm-jjjj</text>
+<text x="16" y="248" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#111">Dagdeel</text>
+<rect x="16" y="260" width="170" height="44" rx="4" fill="#111" stroke="#222" stroke-width="1.5"/>
+<text x="101.0" y="287.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">Ochtend</text>
+<rect x="204" y="260" width="170" height="44" rx="4" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<text x="289.0" y="287.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#111">Middag</text>
+<text x="16" y="324" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#111">Spoedbestelling</text>
+<rect x="16" y="336" width="28" height="28" rx="0" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<text x="56" y="356" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Ja, dezelfde dag, binnen 3 uur</text>
+<rect x="16" y="384" width="358" height="96" rx="0" fill="#fafafa" stroke="#222" stroke-width="1.5"/>
+<text x="32" y="410" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="start" fill="#111">Alleen bij spoed</text>
+<text x="32" y="434" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Eigen koerier vrij: toewijzen.</text>
+<text x="32" y="456" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Niet vrij: externe spoedkoerier.</text>
+<text x="16" y="500" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">Geen spoed, vóór 16:00: volgende</text>
+<text x="16" y="518" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">dag vóór 12:00.</text>
+<rect x="16" y="542" width="358" height="44" rx="4" fill="#111" stroke="#222" stroke-width="1.5"/>
+<text x="195.0" y="569.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">Order opslaan</text>
+<rect x="16" y="606" width="358" height="150" rx="0" fill="#fafafa" stroke="#222" stroke-width="1.5"/>
+<text x="32" y="636" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#111">Order opgeslagen</text>
+<text x="32" y="666" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#111">Ordernummer</text>
+<text x="32" y="688" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" text-anchor="start" fill="#111">2026-0142</text>
+<text x="32" y="716" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" text-anchor="start" fill="#111">Status: wordt verzameld</text>
+<text x="32" y="738" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">Alleen backorder: status backorder.</text>
+</svg>

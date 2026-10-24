@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="1360" viewBox="0 0 390 1360">
+<rect width="390" height="1360" fill="#fff"/>
+<rect x="0" y="0" width="390" height="52" rx="0" fill="#111" stroke="#111" stroke-width="0"/>
+<text x="16" y="33" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#fff">Timaflu</text>
+<text x="96" y="33" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#ddd">Verkoop</text>
+<text x="16" y="88" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#111">Bestelling</text>
+<text x="16" y="114" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">Regels, voorraad, totaal</text>
+<text x="16" y="134" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">en kortingen</text>
+<line x1="16" y1="160" x2="374" y2="160" stroke="#ddd" stroke-width="1.5"/>
+<text x="16" y="184" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" text-anchor="start" fill="#111">Klant: Apotheek De Linde</text>
+<text x="16" y="200" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#111">Bestelcode</text>
+<rect x="16" y="208" width="358" height="36" rx="0" fill="#fafafa" stroke="#222" stroke-width="1.5"/>
+<text x="26" y="231" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#333">MF-3010</text>
+<text x="16" y="256" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#111">Aantal</text>
+<rect x="16" y="264" width="358" height="36" rx="0" fill="#fafafa" stroke="#222" stroke-width="1.5"/>
+<text x="26" y="287" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#333">4</text>
+<rect x="16" y="316" width="358" height="44" rx="4" fill="#111" stroke="#222" stroke-width="1.5"/>
+<text x="195.0" y="343.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">Opzoeken</text>
+<rect x="16" y="376" width="358" height="132" rx="0" fill="#fafafa" stroke="#222" stroke-width="1.5"/>
+<text x="32" y="404" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#111">Amoxicilline 500 mg</text>
+<text x="32" y="430" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Prijs € 8,00</text>
+<text x="32" y="452" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Minimum 1    Voorraad 0</text>
+<text x="32" y="480" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#555">Niet op voorraad.</text>
+<rect x="16" y="524" width="358" height="44" rx="4" fill="#111" stroke="#222" stroke-width="1.5"/>
+<text x="195.0" y="551.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">Toevoegen als leverbaar</text>
+<rect x="16" y="580" width="358" height="44" rx="4" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<text x="195.0" y="607.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#111">Toevoegen als backorder</text>
+<rect x="16" y="648" width="358" height="96" rx="0" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<text x="32" y="674" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="start" fill="#111">MF-1001   Paracetamol 500 mg</text>
+<text x="32" y="700" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">20 stuks</text>
+<text x="32" y="724" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">€ 250,00   leverbaar</text>
+<rect x="16" y="756" width="358" height="96" rx="0" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<text x="32" y="782" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="start" fill="#111">MF-2040   Ibuprofen 400 mg</text>
+<text x="32" y="808" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">25 stuks</text>
+<text x="32" y="832" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">€ 250,00   backorder</text>
+<rect x="16" y="864" width="358" height="36" rx="0" fill="#f2f2f2" stroke="#222" stroke-width="1.5"/>
+<text x="32" y="887" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#111">Omschrijving</text>
+<text x="358" y="887" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="end" fill="#111">Bedrag</text>
+<line x1="16" y1="900" x2="374" y2="900" stroke="#222" stroke-width="1.5"/>
+<text x="32" y="926" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Subtotaal</text>
+<text x="358" y="926" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="end" fill="#111">€ 500,00</text>
+<line x1="16" y1="936" x2="374" y2="936" stroke="#ddd" stroke-width="1.5"/>
+<text x="32" y="962" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Bestelkorting 5%</text>
+<text x="358" y="962" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="end" fill="#111">− € 25,00</text>
+<line x1="16" y1="972" x2="374" y2="972" stroke="#ddd" stroke-width="1.5"/>
+<text x="32" y="998" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Extra 10% eerste keer</text>
+<text x="358" y="998" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="end" fill="#111">− € 47,50</text>
+<line x1="16" y1="1008" x2="374" y2="1008" stroke="#ddd" stroke-width="1.5"/>
+<text x="32" y="1034" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#111">Klantkorting 10%</text>
+<text x="358" y="1034" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" text-anchor="end" fill="#111">− € 42,75</text>
+<line x1="16" y1="1044" x2="374" y2="1044" stroke="#ddd" stroke-width="1.5"/>
+<text x="32" y="1070" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="start" fill="#111">Totaal</text>
+<text x="358" y="1070" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="end" fill="#111">€ 384,75</text>
+<line x1="16" y1="1080" x2="374" y2="1080" stroke="#ddd" stroke-width="1.5"/>
+<text x="16" y="1104" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">Korting berekent het systeem.</text>
+<text x="16" y="1124" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#555">Aanpassen blijft op dit scherm.</text>
+<rect x="16" y="1152" width="358" height="44" rx="4" fill="#111" stroke="#222" stroke-width="1.5"/>
+<text x="195.0" y="1179.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#fff">Akkoord</text>
+<rect x="16" y="1208" width="358" height="44" rx="4" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<text x="195.0" y="1235.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#111">Aanpassen</text>
+<rect x="16" y="1264" width="358" height="44" rx="4" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<text x="195.0" y="1291.0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#111">Afzien</text>
+</svg>
