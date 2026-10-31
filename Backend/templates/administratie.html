@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Administratie en facturatie</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body class="adm-body">
+    {% include '_header.html' %}
+    <div class="wf-root adm-root">
+      <!-- Desktop — Schermontwerp 5.2 -->
+      <div class="wf-board wf-board--desktop adm-board">
+        <p class="screen-id" aria-hidden="true">5.2</p>
+        <header class="adm-page-head">
+          <h1 class="adm-page-title">Administratie en facturatie</h1>
+          <p class="adm-page-meta">{{ week_label }}</p>
+          <p class="adm-page-user">Ingelogd als administratiemedewerker</p>
+          {% if msg and msg.startswith('factuur-') %}
+          <p class="m-banner" role="status">Weekfactuur {{ msg.split('-', 1)[1] }} aangemaakt.</p>
+          {% endif %}
+        </header>
+
+        <section class="adm-panel" aria-labelledby="adm-pending-title">
+          <h2 id="adm-pending-title" class="adm-panel__title">Afgeleverde orders zonder factuur</h2>
+          <p class="adm-panel__hint">
+            Gebundeld per klant. Weektotaal bevat alleen geleverde producten, incl. 9% btw en kortingen.
+          </p>
+          <div class="d-table-wrap">
+            <table class="d-table adm-table">
+              <thead>
+                <tr>
+                  <th scope="col">Klant</th>
+                  <th scope="col" class="num">Orders</th>
+                  <th scope="col" class="num">Producten</th>
+                  <th scope="col" class="num">Korting</th>
+                  <th scope="col" class="num">Jaaromzet</th>
+                  <th scope="col" class="num">Bedrag incl. btw</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in pending %}
+                <tr>
+                  <td>
+                    <strong>{{ row.bedrijfsnaam }}</strong><br />
+                    <span class="adm-muted">{{ row.plaats }}</span>
+                  </td>
+                  <td class="num">{{ row.orders }}</td>
+                  <td class="num">{{ row.producten }}</td>
+                  <td class="num">{{ pct(row.korting_pct) }}</td>
+                  <td class="num">{{ euro(row.jaaromzet) }}</td>
+                  <td class="num">{{ euro(row.bedrag) }}</td>
+                  <td class="adm-actions">
+                    <form method="post" action="{{ url_for('web.administratie_factuur_aanmaken', klantnummer=row.klantnummer) }}" class="adm-inline-form">
+                      <button type="submit" class="wf-btn wf-btn--primary wf-btn--sm">Factuur aanmaken</button>
+                    </form>
+                  </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7">Geen afgeleverde orders zonder factuur.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="adm-panel" aria-labelledby="adm-unpaid-title">
+          <h2 id="adm-unpaid-title" class="adm-panel__title">Openstaande facturen (niet betaald)</h2>
+          <p class="adm-panel__hint">Klanten betalen alleen volledig. Selecteer een klant voor de factuur (productbeschrijving).</p>
+          <div class="d-table-wrap">
+            <table class="d-table adm-table">
+              <thead>
+                <tr>
+                  <th scope="col">Klant</th>
+                  <th scope="col">Factuurnr.</th>
+                  <th scope="col" class="num">Bedrag</th>
+                  <th scope="col">Openstaand</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for f in unpaid %}
+                <tr>
+                  <td>
+                    <strong>{{ f.bedrijfsnaam }}</strong><br />
+                    <span class="adm-muted">{{ f.plaats }} · klant {{ f.klantnummer }}</span>
+                  </td>
+                  <td>{{ f.factuurnummer }}</td>
+                  <td class="num">{{ euro(f.bedrag) }}</td>
+                  <td>
+                    <span class="adm-badge{% if f.status_muted %} adm-badge--muted{% endif %}">{{ f.weken_open }} {% if f.weken_open == 1 %}week{% else %}weken{% endif %}</span>
+                    <span class="adm-status-tag">{{ f.status_label }}</span>
+                  </td>
+                  <td class="adm-actions adm-actions--wrap">
+                    <a href="{{ url_for('web.administratie_page', klantnummer=f.klantnummer) }}" class="wf-btn wf-btn--primary wf-btn--sm">Factuur tonen</a>
+                    <form method="post" action="{{ url_for('web.administratie_herinnering', invoice_id=f.invoice_id) }}" class="adm-inline-form">
+                      <input type="hidden" name="klantnummer" value="{{ f.klantnummer }}" />
+                      <button type="submit" class="wf-btn wf-btn--sm{% if f.actie_disabled %} wf-btn--disabled{% endif %}" {% if f.actie_disabled %}disabled{% endif %}>Herinnering sturen</button>
+                    </form>
+                    <form method="post" action="{{ url_for('web.administratie_betaald', invoice_id=f.invoice_id) }}" class="adm-inline-form">
+                      <button type="submit" class="wf-btn wf-btn--sm">Betaling registreren</button>
+                    </form>
+                  </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5">Geen openstaande facturen.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {% if error %}
+        <p class="m-msg m-msg--err adm-msg" role="alert">{{ error }}</p>
+        {% endif %}
+        {% if factuur %}
+        <section class="adm-panel adm-panel--factuur" aria-label="Factuur">
+          <h2 class="adm-panel__title">Factuur klant {{ klantnummer }}</h2>
+          <pre class="adm-factuur">{{ factuur }}</pre>
+        </section>
+        {% endif %}
+
+        <footer class="adm-footer">© 2026 Timaflu</footer>
+      </div>
+
+      <!-- Mobiel — Schermontwerp 5.2 -->
+      <div class="wf-board wf-board--mobile adm-board adm-board--mobile">
+        <p class="screen-id" aria-hidden="true">5.2 mobiel</p>
+        <header class="adm-m-head">
+          <h1 class="adm-page-title">Administratie en facturatie</h1>
+          <p class="adm-page-meta">{{ week_label }}</p>
+          <p class="adm-page-user">Ingelogd als administratiemedewerker</p>
+        </header>
+
+        <section class="adm-m-card">
+          <h2 class="adm-panel__title">Afgeleverde orders zonder factuur</h2>
+          <p class="adm-panel__hint">Per klant. Alleen geleverde producten, incl. 9% btw en kortingen.</p>
+          <ul class="adm-m-list">
+            {% for row in pending %}
+            <li class="adm-m-item">
+              <div class="adm-m-item__top">
+                <div>
+                  <strong>{{ row.bedrijfsnaam }}</strong>
+                  <span class="adm-muted">{{ row.plaats }}</span>
+                </div>
+                <span class="adm-m-amount">{{ euro(row.bedrag) }}</span>
+              </div>
+              <p class="adm-m-meta">{{ row.orders }} orders · {{ row.producten }} producten · korting {{ pct(row.korting_pct) }} · jaaromzet {{ euro(row.jaaromzet) }}</p>
+              <form method="post" action="{{ url_for('web.administratie_factuur_aanmaken', klantnummer=row.klantnummer) }}">
+                <button type="submit" class="wf-btn wf-btn--block wf-btn--primary">Factuur aanmaken</button>
+              </form>
+            </li>
+            {% else %}
+            <li class="adm-m-empty">Geen afgeleverde orders zonder factuur.</li>
+            {% endfor %}
+          </ul>
+        </section>
+
+        <section class="adm-m-card">
+          <h2 class="adm-panel__title">Onbetaalde facturen</h2>
+          <p class="adm-panel__hint">Klanten betalen alleen volledig. Alle acties voert de administratiemedewerker uit.</p>
+          <ul class="adm-m-list">
+            {% for f in unpaid %}
+            <li class="adm-m-item">
+              <div class="adm-m-item__top">
+                <div>
+                  <strong>{{ f.bedrijfsnaam }}</strong>
+                  <span class="adm-muted">{{ f.plaats }}</span>
+                </div>
+                <span class="adm-m-amount">{{ euro(f.bedrag) }}</span>
+              </div>
+              <p class="adm-m-meta">{{ f.factuurnummer }} · {{ f.weken_open }} {% if f.weken_open == 1 %}week{% else %}weken{% endif %} openstaand</p>
+              <span class="adm-status-tag adm-status-tag--block">{{ f.status_label }}</span>
+              <div class="adm-m-btn-row">
+                <form method="post" action="{{ url_for('web.administratie_betaald', invoice_id=f.invoice_id) }}">
+                  <button type="submit" class="wf-btn wf-btn--block">Betaling registreren</button>
+                </form>
+                <form method="post" action="{{ url_for('web.administratie_herinnering', invoice_id=f.invoice_id) }}">
+                  <input type="hidden" name="klantnummer" value="{{ f.klantnummer }}" />
+                  <button type="submit" class="wf-btn wf-btn--block wf-btn--primary" {% if f.actie_disabled %}disabled{% endif %}>Herinnering sturen</button>
+                </form>
+              </div>
+              <a href="{{ url_for('web.administratie_page', klantnummer=f.klantnummer) }}" class="wf-btn wf-btn--block adm-m-link">Factuur tonen (klant {{ f.klantnummer }})</a>
+            </li>
+            {% else %}
+            <li class="adm-m-empty">Geen onbetaalde facturen.</li>
+            {% endfor %}
+          </ul>
+        </section>
+
+        {% if error %}
+        <p class="m-msg m-msg--err adm-msg" role="alert">{{ error }}</p>
+        {% endif %}
+        {% if factuur %}
+        <section class="adm-m-card">
+          <h2 class="adm-panel__title">Factuur</h2>
+          <pre class="adm-factuur adm-factuur--mobile">{{ factuur }}</pre>
+        </section>
+        {% endif %}
+
+        <footer class="adm-footer adm-footer--mobile">© Timaflu</footer>
+      </div>
+    </div>
+  </body>
+</html>

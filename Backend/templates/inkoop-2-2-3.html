@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Purchasing</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body class="pur-body">
+    {% include '_header.html' %}
+    <div class="wf-root pur-root">
+      <div class="pur-board pur-board--wire">
+        <header class="pur-header-bar">Timaflu - Purchasing</header>
+        <div class="pur-panel">
+          <p class="screen-id screen-id--dual" aria-hidden="true"><span class="screen-id__d">2.2.3</span><span class="screen-id__m">2.2.6</span></p>
+          <h1 class="pur-title">Purchase order registered</h1>
+          {% if order %}
+          <div class="pur-summary pur-summary--wire">
+            <div class="pur-summary__row"><span>Product</span><span>{{ order.productnaam }}</span></div>
+            <div class="pur-summary__row"><span>Manufacturer</span><span>{{ order.leverancier }}</span></div>
+            <div class="pur-summary__row"><span>Price</span><span>{{ euro(order.prijs) }}</span></div>
+          </div>
+          {% else %}
+          <p class="m-msg m-msg--err">Geen inkooporder gevonden. Probeer opnieuw een order te plaatsen.</p>
+          {% endif %}
+          <a href="{{ url_for('web.inkoop_minimum') }}" class="wf-btn wf-btn--pur-wire pur-back-btn">Back to products below minimum stock</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

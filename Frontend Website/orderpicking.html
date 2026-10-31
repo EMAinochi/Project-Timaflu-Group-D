@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Orderpicking 3.2.1</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="orderpicking">
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-brand" href="index.html">
+      <span class="site-brand__logo" aria-hidden="true"></span>
+      <span class="site-brand__text">Timaflu</span>
+    </a>
+
+    <input type="checkbox" id="site-nav-toggle" class="site-nav-checkbox" aria-controls="primary-nav" />
+    <label for="site-nav-toggle" class="site-nav-toggle">
+      <span class="site-nav-toggle__lines" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu openen of sluiten</span>
+    </label>
+
+    <nav class="site-menu" id="primary-nav" aria-label="Hoofdnavigatie">
+      <ul class="site-menu__list">
+        <li><a href="index.html" data-nav>Verkoop</a></li>
+        <li class="site-menu__item site-menu__item--has-sub">
+          <details class="site-menu__details">
+            <summary class="site-menu__trigger">Inkoop</summary>
+            <ul class="site-menu__sub">
+              <li><a href="inkoop-2-2-1.html" data-nav>Minimum voorraad</a></li>
+              <li><a href="inkoop-2-2-2.html" data-nav>Fabrikant kiezen</a></li>
+              <li><a href="inkoop-2-2-3.html" data-nav>Order bevestigd</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="orderpicking.html" data-nav>Orderpicking</a></li>
+        <li><a href="distributie.html" data-nav>Bezorgen</a></li>
+      </ul>
+
+      <div class="site-menu__account">
+        <a href="acquisition-6-22.html" data-nav>Inloggen</a>
+        <a href="acquisition-6-23.html" data-nav>Instellingen</a>
+        <a href="acquisition-6-21.html" data-nav class="site-menu__cta">Registreren</a>
+      </div>
+    </nav>
+  </div>
+</header><div class="wf-root">
+      <!-- Desktop 3.2.1 -->
+      <div class="op-board op-board--desktop">
+        <header class="op-header">
+          <span class="op-header__brand">Timaflu</span>
+          <span class="op-header__module">Orderpicking</span>
+        </header>
+
+        <div class="op-split">
+          <section class="op-panel">
+            <h1 class="op-title">Orderwachtrij</h1>
+            <div class="d-table-wrap">
+              <table class="d-table op-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Ordernr</th>
+                    <th scope="col">Klant</th>
+                    <th scope="col">Spoed</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody data-op-queue-tbody></tbody>
+              </table>
+            </div>
+            <p class="op-footnote">Spoedorders staan bovenaan de wachtrij.</p>
+          </section>
+
+          <section class="op-panel">
+            <h1 class="op-title" data-op-detail-title>Order —</h1>
+            <p class="op-status" data-op-detail-status>Status: —</p>
+
+            <h2 class="op-subtitle">Deelorders per gang</h2>
+            <div class="d-table-wrap">
+              <table class="d-table op-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Gang</th>
+                    <th scope="col">Robot</th>
+                    <th scope="col">Verzamelbakken</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody data-op-gang-tbody></tbody>
+              </table>
+            </div>
+
+            <h2 class="op-subtitle">Backorder</h2>
+            <div class="d-table-wrap">
+              <table class="d-table op-table op-table--compact">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col" class="num">Aantal</th>
+                    <th scope="col">Melding</th>
+                  </tr>
+                </thead>
+                <tbody data-op-backorder-tbody></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Mobile 3.2.2 (responsive) -->
+      <div class="op-board op-board--mobile">
+        <header class="op-header">
+          <span class="op-header__brand">Timaflu</span>
+          <span class="op-header__module">Orderpicking</span>
+        </header>
+
+        <div class="op-mobile-body">
+          <section class="op-mobile-section">
+            <h2 class="op-mobile-heading">Orderwachtrij</h2>
+            <ul class="op-queue-list" data-op-queue-mobile></ul>
+            <p class="op-footnote">Spoedorders staan bovenaan de wachtrij.</p>
+          </section>
+
+          <section class="op-mobile-section">
+            <h2 class="op-mobile-heading" data-op-detail-title>Order —</h2>
+            <p class="op-status" data-op-detail-status>Status: —</p>
+
+            <h3 class="op-mobile-sub">Deelorders per gang</h3>
+            <ul class="op-gang-list" data-op-gang-mobile></ul>
+
+            <h3 class="op-mobile-sub">Backorder</h3>
+            <div data-op-backorder-mobile></div>
+          </section>
+        </div>
+      </div>
+    </div></body>
+</html>

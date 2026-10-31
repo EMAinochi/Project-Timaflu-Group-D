@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Acquisitie</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body class="acq-body">
+    {% include '_header.html' %}
+    <div class="acq-page">
+      <div class="acq-shell acq-shell--wide">
+        <p class="screen-id" aria-hidden="true">6.22</p>
+        {% if msg == 'bezoek' %}
+        <p class="m-banner" role="status">Bezoek toegevoegd.</p>
+        {% elif msg == 'follow-up' %}
+        <p class="m-banner" role="status">Follow-up / tweede contactmoment geregistreerd.</p>
+        {% elif msg and msg.startswith('klant-') and msg != 'klant-mislukt' %}
+        <p class="m-banner" role="status">
+          Klantaccount aangemaakt (nr. {{ msg.split('-', 1)[1] }}) met 10% eenmalige korting op de eerste bestelling.
+        </p>
+        {% elif msg == 'klant-mislukt' %}
+        <p class="m-banner" role="alert">Klant kon niet worden aangemaakt.</p>
+        {% endif %}
+
+        <section class="acq-card acq-card--form">
+          <h1 class="acq-card__title">Langs geweest bij</h1>
+          <p class="acq-card__lead">Registreer een bezoek aan een potentiële klant zonder bestelling.</p>
+          <form class="acq-form" method="post" action="{{ url_for('web.acquisition_add_visit') }}">
+            <div class="acq-field">
+              <label class="wf-label" for="bedrijfsnaam">Bedrijfsnaam</label>
+              <input id="bedrijfsnaam" class="wf-input" name="bedrijfsnaam" required autocomplete="organization" />
+            </div>
+            <div class="acq-field">
+              <label class="wf-label" for="contactpersoon">Contactpersoon</label>
+              <input id="contactpersoon" class="wf-input" name="contactpersoon" required autocomplete="name" />
+            </div>
+            <div class="acq-field">
+              <label class="wf-label" for="telefoonnummer">Contactgevens (telefoon)</label>
+              <input id="telefoonnummer" class="wf-input" name="telefoonnummer" type="tel" required autocomplete="tel" />
+            </div>
+            <div class="acq-field">
+              <label class="wf-label" for="straat">Adres — straat</label>
+              <input id="straat" class="wf-input" name="straat" required autocomplete="street-address" />
+            </div>
+            <div class="acq-form-row">
+              <div class="acq-field">
+                <label class="wf-label" for="postcode">Postcode</label>
+                <input id="postcode" class="wf-input" name="postcode" required autocomplete="postal-code" />
+              </div>
+              <div class="acq-field">
+                <label class="wf-label" for="plaats">Plaats</label>
+                <input id="plaats" class="wf-input" name="plaats" required autocomplete="address-level2" />
+              </div>
+            </div>
+            <div class="acq-field">
+              <label class="wf-label" for="bezoekdatum">Datum bezoek</label>
+              <input id="bezoekdatum" class="wf-input" type="date" name="bezoekdatum" value="{{ today }}" required />
+            </div>
+            <button type="submit" class="wf-btn wf-btn--primary">Bezoek opslaan</button>
+          </form>
+        </section>
+
+        <section class="acq-card acq-card--overview">
+          <h2 class="acq-card__title">Overzicht acquisitie</h2>
+          <p class="acq-card__lead">
+            Bedrijven zonder bestelling, waar minstens een maand geleden iemand langs is geweest.
+          </p>
+          {% if visits %}
+          <ul class="acq-overview">
+            {% for v in visits %}
+            <li class="acq-overview__item">
+              <div class="acq-overview__main">
+                <strong class="acq-overview__company">{{ v.bedrijfsnaam }}</strong>
+                <span class="acq-overview__meta">Bezoek {{ v.bezoekdatum }}</span>
+                <p class="acq-overview__contact">
+                  {{ v.contactpersoon }} · {{ v.telefoonnummer }}
+                </p>
+                <p class="acq-overview__addr">{{ v.adres }}</p>
+                <form class="acq-follow-up" method="post" action="{{ url_for('web.acquisition_follow_up', bezoek_id=v.bezoek_id) }}">
+                  <p class="acq-card__lead">Follow-up / tweede contact</p>
+                  <div class="acq-form-row">
+                    <div class="acq-field">
+                      <label class="wf-label">Datum</label>
+                      <input class="wf-input" type="date" name="follow_up_datum" value="{{ today }}" required />
+                    </div>
+                    <div class="acq-field">
+                      <label class="wf-label">Notitie</label>
+                      <input class="wf-input" name="notitie" placeholder="Telefonisch / opnieuw langs geweest" />
+                    </div>
+                  </div>
+                  <button type="submit" class="wf-btn wf-btn--sm">Follow-up vastleggen</button>
+                </form>
+              </div>
+              <form method="post" action="{{ url_for('web.acquisition_create_customer', bezoek_id=v.bezoek_id) }}">
+                <button type="submit" class="wf-btn wf-btn--sm wf-btn--primary">
+                  10% korting + klantaccount
+                </button>
+              </form>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="m-hint">Geen follow-up kandidaten (bezocht ≥ 1 maand geleden, nog geen klant of bestelling).</p>
+          {% endif %}
+        </section>
+
+        <section class="acq-card acq-card--overview">
+          <h2 class="acq-card__title">Contacthistorie</h2>
+          <p class="acq-card__lead">Bezoeken aan potentiële klanten (nog geen bestelling).</p>
+          {% if history %}
+          <ul class="acq-overview">
+            {% for h in history %}
+            <li class="acq-overview__item">
+              <div class="acq-overview__main">
+                <strong>{{ h.bedrijfsnaam }}</strong>
+                <span class="acq-overview__meta">
+                  Eerste bezoek {{ h.bezoekdatum }}
+                  {% if h.follow_up_count %} · {{ h.follow_up_count }} follow-up(s){% endif %}
+                  {% if h.laatste_follow_up %} · laatste {{ h.laatste_follow_up }}{% endif %}
+                </span>
+                <p class="acq-overview__contact">{{ h.contactpersoon }}</p>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="m-hint">Nog geen bezoeken geregistreerd.</p>
+          {% endif %}
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

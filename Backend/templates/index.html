@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Verkoop</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body class="vk-body">
+    {% include '_header.html' %}
+    <div class="wf-root vk-root">
+      <div class="wf-board vk-wireframe-board vk-board--responsive">
+        <div class="vk-desktop-stack">
+
+          {# —— 1.2.1 / Mobile: Klant_zoeken (1.2) —— #}
+          <section class="vk-screen vk-screen--wire" aria-label="1.2.1 Klant zoeken">
+            <p class="screen-id" aria-hidden="true">1.2.1</p>
+            <header class="vk-module-bar vk-module-bar--wire">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body">
+              <h1 class="d-title">Klant zoeken</h1>
+              <p class="vk-activity">Activiteit: Zoekt de klant op in het systeem.</p>
+              <form class="vk-search-row" method="get" action="{{ url_for('web.verkoop_page') }}">
+                <div class="vk-field-grow">
+                  <label class="wf-label" for="d-klantnaam">Klantnaam</label>
+                  <input class="wf-input" id="d-klantnaam" name="q" type="search" value="{{ q }}" />
+                </div>
+                <button type="submit" class="wf-btn wf-btn--wire-primary">Zoeken</button>
+                <a class="wf-btn wf-btn--wire-secondary" href="{{ url_for('web.verkoop_page', q=q, nieuw=1) }}">Nieuwe klant</a>
+              </form>
+              <div class="d-table-wrap">
+                <table class="d-table vk-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Naam</th>
+                      <th scope="col">Plaats</th>
+                      <th scope="col">Telefoon</th>
+                      <th scope="col">Klantkorting</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for k in klanten %}
+                    <tr>
+                      <td>{{ k.bedrijfsnaam }}</td>
+                      <td>{{ k.aflever_plaats }}</td>
+                      <td>{{ k.telefoonnummer }}</td>
+                      <td>{{ pct(k.klantkorting) }}</td>
+                      <td><a class="wf-btn wf-btn--sm wf-btn--wire-primary" href="{{ url_for('web.verkoop_page', q=q, klant=k.klantnummer) }}#klant">Kies</a></td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5">Geen klanten gevonden.</td></tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <p class="vk-footnote-block">
+                Geen resultaat: Nieuwe klant opent het klantscherm met lege velden.<br />
+                Kies opent het klantscherm van die apotheek.
+              </p>
+            </div>
+          </section>
+
+          {# —— 1.2.2 / Mobile: Klant (1.2) —— #}
+          <section class="vk-screen vk-screen--wire" id="klant" aria-label="1.2.2 Klant">
+            <p class="screen-id" aria-hidden="true">1.2.2</p>
+            <header class="vk-module-bar vk-module-bar--wire">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body">
+              <h1 class="d-title">Klant</h1>
+              <p class="vk-activity">Activiteit: Toont klant, adressen en klantkorting. Dezelfde layout voor nieuwe klant en incassoblokkade.</p>
+              {% if nieuw %}
+              <div class="d-klant-grid">
+                <article class="d-card d-card--plain">
+                  <h3>Nieuwe klant</h3>
+                  <p class="m-hint">Velden leeg — opslaan via acquisitie of handmatig invullen (demo).</p>
+                </article>
+                <article class="d-card d-card--plain">
+                  <h3 class="vk-card-label">Afleveradres</h3>
+                  <p class="vk-card-text vk-card-text--empty">—</p>
+                  <button type="button" class="wf-btn wf-btn--sm" disabled>Wijzigen</button>
+                </article>
+                <article class="d-card d-card--plain">
+                  <h3 class="vk-card-label">Betaaladres</h3>
+                  <p class="vk-card-text vk-card-text--empty">—</p>
+                  <button type="button" class="wf-btn wf-btn--sm" disabled>Wijzigen</button>
+                </article>
+              </div>
+              <div class="vk-actions-inline">
+                <a class="wf-btn wf-btn--wire-primary" href="{{ url_for('web.acquisition_page') }}">Naar acquisitie</a>
+                <a class="wf-btn wf-btn--wire-secondary" href="{{ url_for('web.verkoop_page', q=q) }}">Annuleren</a>
+              </div>
+              {% elif klant %}
+              <div class="d-klant-grid">
+                <article class="d-card">
+                  <h3>{{ klant.bedrijfsnaam }}</h3>
+                  <dl>
+                    <dt>Contactpersoon</dt>
+                    <dd>{{ klant.contactpersoon }}</dd>
+                    <dt>Telefoon</dt>
+                    <dd>{{ klant.telefoonnummer }}</dd>
+                    <dt>Klantkorting</dt>
+                    <dd>{{ klant.klantkorting_tekst }}</dd>
+                    <dt>Extra 10% op de eerste bestelling</dt>
+                    <dd>{{ 'ja' if klant.eerste_bestelling or klant.eenmalige_korting else 'nee' }}</dd>
+                  </dl>
+                </article>
+                <article class="d-card d-card--plain">
+                  <h3 class="vk-card-label">Afleveradres</h3>
+                  <p class="vk-card-text">{{ klant.afleveradres }}</p>
+                  <button type="button" class="wf-btn wf-btn--sm" disabled title="Demo">Wijzigen</button>
+                </article>
+                <article class="d-card d-card--plain">
+                  <h3 class="vk-card-label">Betaaladres</h3>
+                  <p class="vk-card-text">{{ klant.betaaladres }}</p>
+                  <button type="button" class="wf-btn wf-btn--sm" disabled title="Demo">Wijzigen</button>
+                </article>
+              </div>
+              {% if klant.incassoblokkade %}
+              <div class="d-note vk-note-box">
+                <strong>Incassoblokkade</strong>
+                Bestellen is niet mogelijk tot de schuld is betaald. De knop Bestelling starten is verborgen.
+              </div>
+              {% else %}
+              <div class="vk-actions-inline">
+                <a class="wf-btn wf-btn--wire-primary" href="{{ url_for('web.verkoop_page', q=q, klant=klant.klantnummer) }}#bestelling">Bestelling starten</a>
+                <form method="post" action="{{ url_for('web.verkoop_annuleren') }}">
+                  <input type="hidden" name="q" value="{{ q }}" />
+                  <button type="submit" class="wf-btn wf-btn--wire-secondary">Annuleren</button>
+                </form>
+              </div>
+              {% endif %}
+              {% else %}
+              <p class="vk-footnote-block">Selecteer een klant via Zoeken → Kies.</p>
+              {% endif %}
+              <p class="vk-footnote-block vk-footnote-block--muted">
+                Nieuwe klant: velden leeg, knop heet Opslaan. Incassoblokkade: melding, geen Bestelling starten.
+              </p>
+            </div>
+          </section>
+
+          {# —— 1.2.3 / Mobile: Bestelling (1.2) —— #}
+          <section class="vk-screen vk-screen--wire" id="bestelling" aria-label="1.2.3 Bestelling">
+            <p class="screen-id" aria-hidden="true">1.2.3</p>
+            <header class="vk-module-bar vk-module-bar--wire">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body">
+              <h1 class="d-title">Bestelling</h1>
+              <p class="vk-activity">Activiteit: Voert regels in. Toont prijs, voorraad, totaal en kortingen.</p>
+              {% if klant and not klant.incassoblokkade %}
+              <p class="vk-klant-label">Klant: <strong>{{ klant.bedrijfsnaam }}</strong></p>
+              <form class="vk-search-row" method="get" action="{{ url_for('web.verkoop_page') }}#bestelling">
+                <input type="hidden" name="klant" value="{{ klant.klantnummer }}" />
+                <input type="hidden" name="q" value="{{ q }}" />
+                <div>
+                  <label class="wf-label" for="d-code">Bestelcode</label>
+                  <input class="wf-input" id="d-code" name="bestelcode" type="text" value="{{ bestelcode }}" />
+                </div>
+                <div>
+                  <label class="wf-label" for="d-aantal">Aantal</label>
+                  <input class="wf-input" id="d-aantal" name="aantal" type="number" min="1" value="{{ aantal }}" />
+                </div>
+                <button type="submit" class="wf-btn wf-btn--wire-primary">Opzoeken</button>
+              </form>
+              {% if product %}
+              <div class="vk-product-row">
+                <article class="vk-product-card">
+                  <h3>{{ product.naam }}</h3>
+                  <p class="vk-product-meta">
+                    Prijs {{ euro(product.prijs) }} · Minimum {{ product.minimum_bestel }} · Voorraad {{ product.voorraad }}
+                  </p>
+                  {% if product.voorraad <= 0 %}
+                  <p class="vk-stock-msg">Niet op voorraad. De klant kan deze regel als backorder laten toevoegen.</p>
+                  {% endif %}
+                </article>
+                <div class="vk-product-actions">
+                  <form method="post" action="{{ url_for('web.verkoop_add_line') }}">
+                    <input type="hidden" name="klantnummer" value="{{ klant.klantnummer }}" />
+                    <input type="hidden" name="q" value="{{ q }}" />
+                    <input type="hidden" name="bestelcode" value="{{ product.bestelcode }}" />
+                    <input type="hidden" name="aantal" value="{{ aantal }}" />
+                    <input type="hidden" name="status" value="leverbaar" />
+                    <button type="submit" class="wf-btn wf-btn--wire-secondary" {% if product.voorraad <= 0 %}disabled{% endif %}>Toevoegen als leverbaar</button>
+                  </form>
+                  <form method="post" action="{{ url_for('web.verkoop_add_line') }}">
+                    <input type="hidden" name="klantnummer" value="{{ klant.klantnummer }}" />
+                    <input type="hidden" name="q" value="{{ q }}" />
+                    <input type="hidden" name="bestelcode" value="{{ product.bestelcode }}" />
+                    <input type="hidden" name="aantal" value="{{ aantal }}" />
+                    <input type="hidden" name="status" value="backorder" />
+                    <button type="submit" class="wf-btn wf-btn--wire-secondary">Toevoegen als backorder</button>
+                  </form>
+                </div>
+              </div>
+              {% endif %}
+              <div class="vk-order-grid">
+                <div class="d-table-wrap">
+                  <table class="d-table vk-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Naam</th>
+                        <th scope="col" class="num">Aantal</th>
+                        <th scope="col">Prijs</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for line in lines %}
+                      <tr>
+                        <td>{{ line.bestelcode }}</td>
+                        <td>{{ line.naam }}</td>
+                        <td class="num">{{ line.aantal }}</td>
+                        <td>{{ euro(line.aantal * line.prijs) }}</td>
+                        <td class="vk-status-{{ line.status }}">{{ line.status }}</td>
+                      </tr>
+                      {% else %}
+                      <tr><td colspan="5">Nog geen orderregels.</td></tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                {% if totals %}
+                <div class="m-totals vk-totals">
+                  <div class="m-totals__row"><span>Subtotaal</span><span>{{ euro(totals.subtotaal) }}</span></div>
+                  <div class="m-totals__row">
+                    <span>Bestelkorting 5% (vanaf € 500)</span>
+                    <span>− {{ euro(totals.bestelkorting) }}</span>
+                  </div>
+                  <div class="m-totals__row">
+                    <span>Extra 10% eerste bestelling</span>
+                    <span>− {{ euro(totals.eerste_bestelling_korting) }}</span>
+                  </div>
+                  <div class="m-totals__row">
+                    <span>Klantkorting {{ pct(totals.klantkorting_pct) }}</span>
+                    <span>− {{ euro(totals.klantkorting) }}</span>
+                  </div>
+                  <div class="m-totals__row m-totals__row--total"><span>Totaal</span><span>{{ euro(totals.totaal) }}</span></div>
+                </div>
+                {% endif %}
+              </div>
+              <p class="vk-footnote-block">
+                Het systeem berekent de korting. Aanpassen blijft op dit scherm. Afzien sluit de bestelling zonder opslaan.
+              </p>
+              <div class="vk-actions-inline">
+                <a class="wf-btn wf-btn--wire-primary{% if not lines %} wf-btn--disabled{% endif %}" href="{{ url_for('web.verkoop_page', q=q, klant=klant.klantnummer) }}#afronden" {% if not lines %}aria-disabled="true" tabindex="-1"{% endif %}>Akkoord</a>
+                <a class="wf-btn wf-btn--wire-secondary" href="{{ url_for('web.verkoop_page', q=q, klant=klant.klantnummer) }}#bestelling">Aanpassen</a>
+                <form method="post" action="{{ url_for('web.verkoop_afzien') }}">
+                  <input type="hidden" name="klantnummer" value="{{ klant.klantnummer }}" />
+                  <input type="hidden" name="q" value="{{ q }}" />
+                  <button type="submit" class="wf-btn wf-btn--wire-secondary">Afzien</button>
+                </form>
+              </div>
+              {% elif klant and klant.incassoblokkade %}
+              <p class="d-note">Geen bestelling mogelijk vanwege incassoblokkade.</p>
+              {% else %}
+              <p class="vk-footnote-block">Kies eerst een klant en start een bestelling.</p>
+              {% endif %}
+            </div>
+          </section>
+
+          {# —— 1.2.4 / Mobile: Afronden (1.2) —— #}
+          <section class="vk-screen vk-screen--wire" id="afronden" aria-label="1.2.4 Afronden">
+            <p class="screen-id" aria-hidden="true">1.2.4</p>
+            <header class="vk-module-bar vk-module-bar--wire">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body vk-afronden-narrow">
+              <h1 class="d-title">Afronden</h1>
+              <p class="vk-activity">Activiteit: Legt leverdatum, dagdeel en spoed vast. Het resultaat blijft op dit scherm.</p>
+              {% if klant and lines and not klant.incassoblokkade %}
+              <form method="post" action="{{ url_for('web.verkoop_save_order') }}">
+                <input type="hidden" name="klantnummer" value="{{ klant.klantnummer }}" />
+                <input type="hidden" name="q" value="{{ q }}" />
+                <label class="wf-label" for="d-date">Leverdatum</label>
+                <input class="wf-input" id="d-date" name="bezorgdatum" type="date" required />
+                <span class="wf-label">Dagdeel</span>
+                <div class="m-segmented vk-segmented">
+                  <label class="vk-segment"><input type="radio" name="dagdeel" value="ochtend" checked /> Ochtend</label>
+                  <label class="vk-segment"><input type="radio" name="dagdeel" value="middag" /> Middag</label>
+                </div>
+                <span class="wf-label">Spoedbestelling</span>
+                <div class="m-check">
+                  <input type="checkbox" id="d-spoed" name="spoed" value="1" />
+                  <label for="d-spoed">Ja, dezelfde dag, binnen 3 uur</label>
+                </div>
+                <div class="d-note vk-note-box">
+                  Alleen bij spoed: eigen koerier vrij? Ja: wijs toe aan een eigen koerier. Nee: bel een externe spoedkoerier.
+                </div>
+                <p class="vk-footnote-block">Geen spoed en vóór 16:00 besteld: de volgende dag vóór 12:00.</p>
+                <button type="submit" class="wf-btn wf-btn--wire-primary vk-save-btn">Order opslaan</button>
+              </form>
+              {% elif not klant %}
+              <p class="vk-footnote-block">Kies een klant en voeg orderregels toe.</p>
+              {% elif not lines %}
+              <p class="vk-footnote-block">Voeg eerst producten toe op het scherm Bestelling.</p>
+              {% endif %}
+              {% if saved %}
+              <article class="d-card m-card--muted vk-save-result">
+                <h3>Order opgeslagen</h3>
+                <p><strong>Ordernummer</strong> {{ saved.ordernummer }}</p>
+                <p><strong>Status:</strong> {{ saved.status }}</p>
+                {% if saved.backorder_only %}
+                <p class="vk-footnote-block">Alleen backorderregels: status backorder. De order gaat naar orderpicking.</p>
+                {% else %}
+                <p class="vk-footnote-block">De order gaat naar orderpicking.</p>
+                {% endif %}
+              </article>
+              {% endif %}
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

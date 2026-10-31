@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-brand" href="{{ url_for('web.verkoop_page') }}">
+      <span class="site-brand__logo" aria-hidden="true"></span>
+      <span class="site-brand__text">Timaflu</span>
+    </a>
+    <input type="checkbox" id="site-nav-toggle" class="site-nav-checkbox" aria-controls="primary-nav" />
+    <label for="site-nav-toggle" class="site-nav-toggle">
+      <span class="site-nav-toggle__lines" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu openen of sluiten</span>
+    </label>
+    <nav class="site-menu" id="primary-nav" aria-label="Hoofdnavigatie">
+      <ul class="site-menu__list">
+        <li><a href="{{ url_for('web.verkoop_page') }}"{% if active == 'verkoop' %} aria-current="page"{% endif %}>Verkoop</a></li>
+        <li class="site-menu__item site-menu__item--has-sub">
+          <details class="site-menu__details">
+            <summary class="site-menu__trigger">Inkoop</summary>
+            <ul class="site-menu__sub">
+              <li><a href="{{ url_for('web.inkoop_minimum') }}"{% if active == 'inkoop-min' %} aria-current="page"{% endif %}>Minimum voorraad</a></li>
+              <li><a href="{{ url_for('web.inkoop_suppliers') }}"{% if active == 'inkoop-sup' %} aria-current="page"{% endif %}>Fabrikant kiezen</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="{{ url_for('web.orderpicking_page') }}"{% if active == 'orderpicking' %} aria-current="page"{% endif %}>Orderpicking</a></li>
+        <li><a href="{{ url_for('web.distributie_page') }}"{% if active == 'distributie' %} aria-current="page"{% endif %}>Bezorgen</a></li>
+        <li><a href="{{ url_for('web.administratie_page') }}"{% if active == 'administratie' %} aria-current="page"{% endif %}>Administratie</a></li>
+        <li><a href="{{ url_for('web.acquisition_page') }}"{% if active == 'acquisitie' %} aria-current="page"{% endif %}>Acquisitie</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

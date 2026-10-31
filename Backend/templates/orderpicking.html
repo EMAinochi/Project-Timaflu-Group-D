@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Orderpicking</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body>
+    {% include '_header.html' %}
+    <div class="wf-root">
+      {% if msg == 'gang' %}
+      <p class="m-banner" role="status">Deelorderstatus bijgewerkt.</p>
+      {% elif msg == 'compleet' %}
+      <p class="m-banner" role="status">Order gemeld als klaar voor distributie.</p>
+      {% elif msg == 'compleet-mislukt' %}
+      <p class="m-banner" role="alert">Order nog niet compleet — alle gangs moeten verzameld zijn.</p>
+      {% endif %}
+
+      <div class="op-board op-board--desktop">
+        <p class="screen-id" aria-hidden="true">3.2.1</p>
+        <header class="op-header">
+          <span class="op-header__brand">Timaflu</span>
+          <span class="op-header__module">Orderpicking</span>
+        </header>
+        <div class="op-split">
+          <section class="op-panel">
+            <h1 class="op-title">Orderwachtrij</h1>
+            <div class="d-table-wrap">
+              <table class="d-table op-table">
+                <thead>
+                  <tr><th scope="col">Ordernr</th><th scope="col">Klant</th><th scope="col">Spoed</th><th scope="col">Status</th></tr>
+                </thead>
+                <tbody>
+                  {% for o in orders %}
+                  <tr{% if o.ordernummer == selected_order %} class="op-row--selected"{% endif %}>
+                    <td><a href="{{ url_for('web.orderpicking_page', order=o.ordernummer) }}">{{ o.ordernummer }}</a></td>
+                    <td>{{ o.bedrijfsnaam }}</td>
+                    <td>{{ 'Ja' if o.spoed else 'Nee' }}</td>
+                    <td>{{ o.status }}</td>
+                  </tr>
+                  {% else %}
+                  <tr><td colspan="4">Geen orders in de wachtrij.</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <p class="op-footnote">Spoedorders staan bovenaan de wachtrij.</p>
+          </section>
+          <section class="op-panel">
+            {% if detail %}
+            <h1 class="op-title">Order {{ detail.ordernummer }} — {{ detail.bedrijfsnaam }}</h1>
+            <p class="op-status">Status: {{ detail.status }}</p>
+
+            <h2 class="op-subtitle">Te verzamelen producten</h2>
+            <div class="d-table-wrap">
+              <table class="d-table op-table op-table--compact">
+                <thead>
+                  <tr>
+                    <th scope="col">Artikel</th>
+                    <th scope="col">Product</th>
+                    <th scope="col" class="num">Aantal</th>
+                    <th scope="col">Magazijn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% set leverbaar = detail.regels | selectattr('status', 'equalto', 'leverbaar') | list %}
+                  {% for r in leverbaar %}
+                  <tr>
+                    <td>{{ r.bestelcode }}</td>
+                    <td>{{ r.naam }}</td>
+                    <td class="num">{{ r.aantal }}</td>
+                    <td><strong>{{ r.locatie_code }}</strong> <span class="adm-muted">({{ r.magazijn_locatie }})</span></td>
+                  </tr>
+                  {% else %}
+                  <tr><td colspan="4">Geen leverbare regels.</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <h2 class="op-subtitle">Deelorders per gang</h2>
+            <div class="d-table-wrap">
+              <table class="d-table op-table">
+                <thead><tr><th scope="col">Gang</th><th scope="col">Robot</th><th scope="col">Verzamelbakken</th><th scope="col">Status</th><th scope="col"></th></tr></thead>
+                <tbody>
+                  {% for g in detail.gangs %}
+                  <tr>
+                    <td>{{ g.gang }}</td><td>{{ g.robot }}</td><td>{{ g.bakken }}</td><td>{{ g.status }}</td>
+                    <td class="op-gang-actions">
+                      <form method="post" action="{{ url_for('web.orderpicking_gang_status', order_ref=detail.ordernummer, gang=g.gang) }}" class="adm-inline-form">
+                        <input type="hidden" name="status" value="VERZAMELD" />
+                        <button type="submit" class="wf-btn wf-btn--sm">Verzameld</button>
+                      </form>
+                      <form method="post" action="{{ url_for('web.orderpicking_gang_status', order_ref=detail.ordernummer, gang=g.gang) }}" class="adm-inline-form">
+                        <input type="hidden" name="status" value="ROLLERBAAN" />
+                        <button type="submit" class="wf-btn wf-btn--sm wf-btn--primary">Op rollerbaan</button>
+                      </form>
+                    </td>
+                  </tr>
+                  {% else %}
+                  <tr><td colspan="5">Geen deelorders (alle regels backorder).</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            {% if detail.kan_compleet %}
+            <form method="post" action="{{ url_for('web.orderpicking_compleet', order_ref=detail.ordernummer) }}" class="op-complete-form">
+              <button type="submit" class="wf-btn wf-btn--primary">Order compleet — klaar voor distributie</button>
+            </form>
+            {% endif %}
+
+            <h2 class="op-subtitle">Backorder</h2>
+            <div class="d-table-wrap">
+              <table class="d-table op-table op-table--compact">
+                <thead><tr><th scope="col">Product</th><th scope="col" class="num">Aantal</th><th scope="col">Melding</th></tr></thead>
+                <tbody>
+                  {% for b in detail.backorder %}
+                  <tr><td>{{ b.naam }}</td><td class="num">{{ b.aantal }}</td><td>{{ b.melding }}</td></tr>
+                  {% else %}
+                  <tr><td colspan="3">Geen backorderregels.</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <p class="m-hint">Selecteer een order in de wachtrij.</p>
+            {% endif %}
+          </section>
+        </div>
+      </div>
+
+      <div class="op-board op-board--mobile">
+        <p class="screen-id" aria-hidden="true">3.2.2</p>
+        <header class="op-header">
+          <span class="op-header__brand">Timaflu</span>
+          <span class="op-header__module">Orderpicking</span>
+        </header>
+        <div class="op-mobile-body">
+          <section class="op-mobile-section">
+            <h2 class="op-mobile-heading">Orderwachtrij</h2>
+            <ul class="op-queue-list">
+              {% for o in orders %}
+              <li>
+                <a class="op-queue-card{% if o.ordernummer == selected_order %} op-queue-card--active{% endif %}" href="{{ url_for('web.orderpicking_page', order=o.ordernummer) }}">
+                  <div class="op-queue-card__main">
+                    <strong>{{ o.ordernummer }} — {{ o.bedrijfsnaam }}</strong>
+                    <span>{{ o.status }}</span>
+                  </div>
+                  {% if o.spoed %}<span class="op-badge">Spoed</span>{% endif %}
+                </a>
+              </li>
+              {% else %}
+              <li class="m-hint">Geen orders in de wachtrij.</li>
+              {% endfor %}
+            </ul>
+            <p class="op-footnote">Spoedorders staan bovenaan de wachtrij.</p>
+          </section>
+          {% if detail %}
+          <section class="op-mobile-section">
+            <h2 class="op-mobile-heading">Order {{ detail.ordernummer }} — {{ detail.bedrijfsnaam }}</h2>
+            <p class="op-status">Status: {{ detail.status }}</p>
+
+            <h3 class="op-mobile-sub">Deelorders per gang</h3>
+            <ul class="op-gang-list">
+              {% for g in detail.gangs %}
+              <li class="op-gang-card">
+                <div>
+                  <strong>Gang {{ g.gang }} · {{ g.robot }}</strong>
+                  <span>{{ g.bakken }} · {{ g.status }}</span>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+            {% for g in detail.gangs %}
+            <div class="adm-m-btn-row">
+              <form method="post" action="{{ url_for('web.orderpicking_gang_status', order_ref=detail.ordernummer, gang=g.gang) }}">
+                <input type="hidden" name="status" value="VERZAMELD" />
+                <button type="submit" class="wf-btn wf-btn--block wf-btn--sm">Gang {{ g.gang }} verzameld</button>
+              </form>
+              <form method="post" action="{{ url_for('web.orderpicking_gang_status', order_ref=detail.ordernummer, gang=g.gang) }}">
+                <input type="hidden" name="status" value="ROLLERBAAN" />
+                <button type="submit" class="wf-btn wf-btn--block wf-btn--sm wf-btn--primary">Rollerbaan</button>
+              </form>
+            </div>
+            {% endfor %}
+            {% if detail.kan_compleet %}
+            <form method="post" action="{{ url_for('web.orderpicking_compleet', order_ref=detail.ordernummer) }}">
+              <button type="submit" class="wf-btn wf-btn--block wf-btn--primary">Order compleet</button>
+            </form>
+            {% endif %}
+
+            <h3 class="op-mobile-sub">Backorder</h3>
+            {% for b in detail.backorder %}
+            <div class="op-backorder-card">
+              <strong>{{ b.naam }}</strong>
+              <p>Aantal: {{ b.aantal }}</p>
+              <span class="op-backorder-note">{{ b.melding }}</span>
+            </div>
+            {% else %}
+            <p class="m-hint">Geen backorderregels.</p>
+            {% endfor %}
+          </section>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Verkoop</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="verkoop">
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-brand" href="index.html">
+      <span class="site-brand__logo" aria-hidden="true"></span>
+      <span class="site-brand__text">Timaflu</span>
+    </a>
+
+    <input type="checkbox" id="site-nav-toggle" class="site-nav-checkbox" aria-controls="primary-nav" />
+    <label for="site-nav-toggle" class="site-nav-toggle">
+      <span class="site-nav-toggle__lines" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu openen of sluiten</span>
+    </label>
+
+    <nav class="site-menu" id="primary-nav" aria-label="Hoofdnavigatie">
+      <ul class="site-menu__list">
+        <li><a href="index.html" data-nav>Verkoop</a></li>
+        <li class="site-menu__item site-menu__item--has-sub">
+          <details class="site-menu__details">
+            <summary class="site-menu__trigger">Inkoop</summary>
+            <ul class="site-menu__sub">
+              <li><a href="inkoop-2-2-1.html" data-nav>Minimum voorraad</a></li>
+              <li><a href="inkoop-2-2-2.html" data-nav>Fabrikant kiezen</a></li>
+              <li><a href="inkoop-2-2-3.html" data-nav>Order bevestigd</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="orderpicking.html" data-nav>Orderpicking</a></li>
+        <li><a href="distributie.html" data-nav>Bezorgen</a></li>
+      </ul>
+
+      <div class="site-menu__account">
+        <a href="acquisition-6-22.html" data-nav>Inloggen</a>
+        <a href="acquisition-6-23.html" data-nav>Instellingen</a>
+        <a href="acquisition-6-21.html" data-nav class="site-menu__cta">Registreren</a>
+      </div>
+    </nav>
+  </div>
+</header><div class="wf-root">
+      <!-- Desktop 1.2 — Schermopname 1.2.1–1.2.4 -->
+      <div class="wf-board wf-board--desktop">
+        <div class="vk-desktop-stack">
+          <section class="vk-screen" aria-label="Klant zoeken">
+            <header class="vk-module-bar">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body">
+              <h1 class="d-title">Klant zoeken</h1>
+              <p class="vk-activity">Activiteit: Zoekt de klant op in het systeem.</p>
+              <div class="vk-search-row">
+                <div class="vk-field-grow">
+                  <label class="wf-label" for="d-klantnaam">Klantnaam</label>
+                  <input class="wf-input" id="d-klantnaam" type="search" value="Apotheek" data-vk-zoek />
+                </div>
+                <button type="button" class="wf-btn wf-btn--primary" data-vk-zoek-btn>Zoeken</button>
+                <button type="button" class="wf-btn">Nieuwe klant</button>
+              </div>
+              <div class="d-table-wrap">
+                <table class="d-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Naam</th>
+                      <th scope="col">Plaats</th>
+                      <th scope="col">Telefoon</th>
+                      <th scope="col">Klantkorting</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody data-vk-klant-tbody></tbody>
+                </table>
+              </div>
+              <p class="vk-footnote-block">
+                Geen resultaat: Nieuwe klant opent het klantscherm met lege velden.<br />
+                Kies opent het klantscherm van die apotheek.
+              </p>
+            </div>
+          </section>
+
+          <section class="vk-screen" aria-label="Klant">
+            <header class="vk-module-bar">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body">
+              <h1 class="d-title">Klant</h1>
+              <p class="vk-activity">
+                Activiteit: Toont klant, adressen en klantkorting. Zelfde scherm voor een nieuwe klant
+                en voor een incassoblokkade.
+              </p>
+              <div class="d-klant-grid">
+                <article class="d-card">
+                  <h3 data-vk-klant-naam>—</h3>
+                  <dl>
+                    <dt>Contactpersoon</dt>
+                    <dd data-vk-klant-contact>—</dd>
+                    <dt>Telefoon</dt>
+                    <dd data-vk-klant-tel>—</dd>
+                    <dt>Klantkorting</dt>
+                    <dd data-vk-klant-korting>—</dd>
+                    <dt>Extra 10% op de eerste bestelling</dt>
+                    <dd data-vk-klant-extra>—</dd>
+                  </dl>
+                </article>
+                <article class="d-card d-card--plain">
+                  <h3 class="vk-card-label">Afleveradres</h3>
+                  <p class="vk-card-text" data-vk-aflever>—</p>
+                  <button type="button" class="wf-btn wf-btn--sm">Wijzigen</button>
+                </article>
+                <article class="d-card d-card--plain">
+                  <h3 class="vk-card-label">Betaaladres</h3>
+                  <p class="vk-card-text" data-vk-betaal>—</p>
+                  <button type="button" class="wf-btn wf-btn--sm">Wijzigen</button>
+                </article>
+              </div>
+              <div class="d-note">
+                <strong>Zelfde scherm, andere situatie</strong>
+                Nieuwe klant: velden leeg. De knop hieronder heet dan Opslaan. Incassoblokkade:
+                melding dat bestellen niet kan tot de schuld is betaald. Geen knop Bestelling starten.
+              </div>
+              <div class="vk-actions-inline">
+                <button type="button" class="wf-btn wf-btn--primary" data-vk-start-order>Bestelling starten</button>
+                <button type="button" class="wf-btn">Annuleren</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="vk-screen" aria-label="Bestelling">
+            <header class="vk-module-bar">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body">
+              <h1 class="d-title">Bestelling</h1>
+              <p class="vk-activity">
+                Activiteit: Voert regels in. Toont prijs, voorraad, totaal en kortingen.
+              </p>
+              <p class="m-banner" data-vk-bestelling-klant>Klant: —</p>
+              <div class="vk-search-row">
+                <div>
+                  <label class="wf-label" for="d-code">Bestelcode</label>
+                  <input class="wf-input" id="d-code" type="text" value="MF-3012" data-vk-product-code />
+                </div>
+                <div>
+                  <label class="wf-label" for="d-aantal">Aantal</label>
+                  <input class="wf-input" id="d-aantal" type="number" value="4" data-vk-product-qty />
+                </div>
+                <button type="button" class="wf-btn wf-btn--primary" data-vk-lookup>Opzoeken</button>
+              </div>
+              <div class="vk-product-row">
+                <article class="vk-product-card" data-vk-product-preview>
+                  <p class="m-hint">Zoek een product op via bestelcode.</p>
+                </article>
+                <div class="vk-product-actions">
+                  <button type="button" class="wf-btn wf-btn--primary" data-vk-add-leverbaar>Toevoegen als leverbaar</button>
+                  <button type="button" class="wf-btn" data-vk-add-backorder>Toevoegen als backorder</button>
+                </div>
+              </div>
+              <div class="vk-order-grid">
+                <div class="d-table-wrap">
+                  <table class="d-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Naam</th>
+                        <th scope="col" class="num">Aantal</th>
+                        <th scope="col">Prijs</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody data-vk-order-tbody></tbody>
+                  </table>
+                </div>
+                <div class="m-totals" data-vk-totals>
+                  <div class="m-totals__head"><span>Omschrijving</span><span>Bedrag</span></div>
+                </div>
+              </div>
+              <p class="vk-footnote-block">
+                Het systeem berekent de korting. Aanpassen blijft op dit scherm. Afzien sluit de
+                bestelling zonder opslaan.
+              </p>
+              <div class="vk-actions-inline">
+                <button type="button" class="wf-btn wf-btn--primary">Akkoord</button>
+                <button type="button" class="wf-btn">Aanpassen</button>
+                <button type="button" class="wf-btn">Afzien</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="vk-screen" aria-label="Afronden">
+            <header class="vk-module-bar">
+              <div class="vk-module-bar__left">
+                <span class="vk-module-bar__brand">Timaflu</span>
+                <span class="vk-module-bar__module">Verkoop</span>
+              </div>
+              <span class="vk-module-bar__user">Verkoopmedewerker</span>
+            </header>
+            <div class="vk-screen__body vk-afronden-narrow">
+              <h1 class="d-title">Afronden</h1>
+              <p class="vk-activity">
+                Activiteit: Legt leverdatum, dagdeel en spoed vast. Het resultaat blijft op dit scherm.
+              </p>
+              <label class="wf-label" for="d-date">Leverdatum</label>
+              <input class="wf-input" id="d-date" type="date" data-vk-bezorgdatum />
+              <span class="wf-label">Dagdeel</span>
+              <div class="m-segmented">
+                <button type="button" class="wf-btn wf-btn--primary" data-vk-dagdeel="ochtend">Ochtend</button>
+                <button type="button" class="wf-btn" data-vk-dagdeel="middag">Middag</button>
+              </div>
+              <span class="wf-label">Spoedbestelling</span>
+              <div class="m-check">
+                <input type="checkbox" id="d-spoed" data-vk-spoed />
+                <label for="d-spoed">Ja, dezelfde dag, binnen 3 uur</label>
+              </div>
+              <article class="d-note">
+                <strong>Alleen bij spoed: eigen koerier vrij?</strong>
+                Ja: wijs toe aan een eigen koerier. Nee: bel een externe spoedkoerier.
+              </article>
+              <p class="vk-footnote-block">
+                Geen spoed en vóór 16:00 besteld: de volgende dag vóór 12:00.
+              </p>
+              <button type="button" class="wf-btn wf-btn--primary" data-vk-save-order>Order opslaan</button>
+              <article class="d-card m-card--muted" style="margin-top: 1.25rem" data-vk-order-saved hidden>
+                <h3>Order opgeslagen</h3>
+                <p><strong>Ordernummer</strong> <span data-vk-order-nr>—</span></p>
+                <p><strong>Status:</strong> <span data-vk-order-status>—</span></p>
+                <p class="m-hint">
+                  Alleen backorderregels: status backorder. De order gaat naar orderpicking.
+                </p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Mobile 1.2 — SVG schermontwerpen -->
+      <div class="wf-board wf-board--mobile">
+        <section class="m-screen" aria-label="Klant zoeken">
+          <header class="m-bar">
+            <span class="m-bar__brand">Timaflu</span>
+            <span class="m-bar__module">Verkoop</span>
+          </header>
+          <div class="m-body">
+            <header class="m-head">
+              <h2>Klant zoeken</h2>
+              <p>Activiteit: Zoekt de klant op in het systeem.</p>
+            </header>
+            <label class="wf-label" for="m-klantnaam">Klantnaam</label>
+            <input class="wf-input" id="m-klantnaam" type="text" value="Apotheek" data-vk-zoek />
+            <div class="wf-btn-row">
+              <button type="button" class="wf-btn wf-btn--primary" data-vk-zoek-btn>Zoeken</button>
+              <button type="button" class="wf-btn">Nieuwe klant</button>
+            </div>
+            <div data-vk-klant-mobile></div>
+            <p class="m-hint">
+              Geen resultaat: Nieuwe klant opent dit klantscherm, leeg.<br />
+              Kies opent het klantscherm van die apotheek.
+            </p>
+          </div>
+        </section>
+
+        <section class="m-screen" aria-label="Klant">
+          <header class="m-bar">
+            <span class="m-bar__brand">Timaflu</span>
+            <span class="m-bar__module">Verkoop</span>
+          </header>
+          <div class="m-body">
+            <header class="m-head">
+              <h2>Klant</h2>
+              <p>Klant, adressen en korting. Ook nieuw en incassoblokkade.</p>
+            </header>
+            <article class="m-card m-card--muted">
+              <h3 data-vk-klant-naam>—</h3>
+              <dl class="m-meta">
+                <dt>Contactpersoon</dt>
+                <dd data-vk-klant-contact>—</dd>
+                <dt>Telefoon</dt>
+                <dd data-vk-klant-tel>—</dd>
+                <dt>Klantkorting</dt>
+                <dd data-vk-klant-korting>—</dd>
+                <dd data-vk-klant-extra>—</dd>
+              </dl>
+            </article>
+            <article class="m-card">
+              <h3 style="font-size: 0.8125rem">Afleveradres</h3>
+              <p data-vk-aflever>—</p>
+              <button type="button" class="wf-btn wf-btn--sm" style="margin-top: 0.5rem">Wijzigen</button>
+            </article>
+            <article class="m-card">
+              <h3 style="font-size: 0.8125rem">Betaaladres</h3>
+              <p data-vk-betaal>—</p>
+              <button type="button" class="wf-btn wf-btn--sm" style="margin-top: 0.5rem">Wijzigen</button>
+            </article>
+            <article class="m-card m-card--muted">
+              <strong>Zelfde scherm, andere situatie</strong>
+              <p class="m-hint" style="margin-top: 0.35rem">
+                Nieuwe klant: velden leeg. De knop heet dan Opslaan.<br />
+                Incasso: geen startknop, wel de melding dat bestellen niet kan.
+              </p>
+            </article>
+            <div class="wf-btn-row">
+              <button type="button" class="wf-btn wf-btn--primary" data-vk-start-order>Bestelling starten</button>
+              <button type="button" class="wf-btn">Annuleren</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="m-screen" aria-label="Bestelling">
+          <header class="m-bar">
+            <span class="m-bar__brand">Timaflu</span>
+            <span class="m-bar__module">Verkoop</span>
+          </header>
+          <div class="m-body">
+            <header class="m-head">
+              <h2>Bestelling</h2>
+              <p>Regels, voorraad, totaal en kortingen.</p>
+            </header>
+            <p class="m-banner" data-vk-bestelling-klant>Klant: —</p>
+            <label class="wf-label" for="m-code">Bestelcode</label>
+            <input class="wf-input" id="m-code" type="text" value="MF-3012" data-vk-product-code />
+            <label class="wf-label" for="m-qty">Aantal</label>
+            <input class="wf-input" id="m-qty" type="text" value="4" data-vk-product-qty />
+            <button type="button" class="wf-btn wf-btn--primary" style="margin-bottom: 1rem" data-vk-lookup>Opzoeken</button>
+
+            <article class="m-card m-card--muted" data-vk-product-preview>
+              <p class="m-hint">Zoek een product op via bestelcode.</p>
+              <div class="wf-btn-row m-product-actions">
+                <button type="button" class="wf-btn wf-btn--primary" data-vk-add-leverbaar>Toevoegen als leverbaar</button>
+                <button type="button" class="wf-btn" data-vk-add-backorder>Toevoegen als backorder</button>
+              </div>
+            </article>
+
+            <div data-vk-order-mobile></div>
+
+            <div class="m-totals" data-vk-totals>
+              <div class="m-totals__head">
+                <span>Omschrijving</span>
+                <span>Bedrag</span>
+              </div>
+            </div>
+            <p class="m-hint">Korting berekent het systeem. Aanpassen blijft op dit scherm.</p>
+            <div class="wf-btn-row">
+              <button type="button" class="wf-btn wf-btn--primary">Akkoord</button>
+              <button type="button" class="wf-btn">Aanpassen</button>
+              <button type="button" class="wf-btn">Afzien</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="m-screen" aria-label="Afronden">
+          <header class="m-bar">
+            <span class="m-bar__brand">Timaflu</span>
+            <span class="m-bar__module">Verkoop</span>
+          </header>
+          <div class="m-body">
+            <header class="m-head">
+              <h2>Afronden</h2>
+              <p>Leverdatum, dagdeel en spoed. Resultaat blijft op dit scherm.</p>
+            </header>
+            <label class="wf-label" for="m-date">Leverdatum</label>
+            <input class="wf-input" id="m-date" type="date" data-vk-bezorgdatum />
+            <span class="wf-label">Dagdeel</span>
+            <div class="m-segmented">
+              <button type="button" class="wf-btn wf-btn--primary" data-vk-dagdeel="ochtend">Ochtend</button>
+              <button type="button" class="wf-btn" data-vk-dagdeel="middag">Middag</button>
+            </div>
+            <span class="wf-label">Spoedbestelling</span>
+            <div class="m-check">
+              <span class="m-check-box" aria-hidden="true"></span>
+              <span>Ja, dezelfde dag, binnen 3 uur</span>
+            </div>
+            <article class="m-card m-card--muted">
+              <strong>Alleen bij spoed</strong>
+              <p class="m-hint" style="margin-top: 0.35rem">
+                Eigen koerier vrij: toewijzen.<br />
+                Niet vrij: externe spoedkoerier.
+              </p>
+            </article>
+            <p class="m-hint">Geen spoed, vóór 16:00: volgende dag vóór 12:00.</p>
+            <button type="button" class="wf-btn wf-btn--primary" style="margin-bottom: 1rem" data-vk-save-order>Order opslaan</button>
+            <article class="m-card m-card--muted" data-vk-order-saved hidden>
+              <h3>Order opgeslagen</h3>
+              <dl class="m-meta">
+                <dt>Ordernummer</dt>
+                <dd data-vk-order-nr>—</dd>
+                <dt>Status</dt>
+                <dd data-vk-order-status>—</dd>
+              </dl>
+              <p class="m-hint">
+                Alleen backorderregels: status backorder. De order gaat naar orderpicking.
+              </p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div></body>
+</html>

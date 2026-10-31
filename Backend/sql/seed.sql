@@ -1,0 +1,1 @@
+-- Deprecated: use ../../timaflu_seed.sql together with ../../timaflu_schema.sql

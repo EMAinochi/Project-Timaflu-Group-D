@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Distributie 4.2.1</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="dist-body" data-page="distributie">
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="site-brand" href="index.html">
+      <span class="site-brand__logo" aria-hidden="true"></span>
+      <span class="site-brand__text">Timaflu</span>
+    </a>
+
+    <input type="checkbox" id="site-nav-toggle" class="site-nav-checkbox" aria-controls="primary-nav" />
+    <label for="site-nav-toggle" class="site-nav-toggle">
+      <span class="site-nav-toggle__lines" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu openen of sluiten</span>
+    </label>
+
+    <nav class="site-menu" id="primary-nav" aria-label="Hoofdnavigatie">
+      <ul class="site-menu__list">
+        <li><a href="index.html" data-nav>Verkoop</a></li>
+        <li class="site-menu__item site-menu__item--has-sub">
+          <details class="site-menu__details">
+            <summary class="site-menu__trigger">Inkoop</summary>
+            <ul class="site-menu__sub">
+              <li><a href="inkoop-2-2-1.html" data-nav>Minimum voorraad</a></li>
+              <li><a href="inkoop-2-2-2.html" data-nav>Fabrikant kiezen</a></li>
+              <li><a href="inkoop-2-2-3.html" data-nav>Order bevestigd</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="orderpicking.html" data-nav>Orderpicking</a></li>
+        <li><a href="distributie.html" data-nav>Bezorgen</a></li>
+      </ul>
+
+      <div class="site-menu__account">
+        <a href="acquisition-6-22.html" data-nav>Inloggen</a>
+        <a href="acquisition-6-23.html" data-nav>Instellingen</a>
+        <a href="acquisition-6-21.html" data-nav class="site-menu__cta">Registreren</a>
+      </div>
+    </nav>
+  </div>
+</header><div class="dist-root">
+      <header class="dist-top">
+        <div class="dist-top__intro">
+          <p class="dist-date" data-dist-date>—</p>
+          <h1 class="dist-greeting">Goedemorgen, Max</h1>
+        </div>
+        <div class="dist-search" role="search">
+          <span class="dist-search__icon" aria-hidden="true"></span>
+          <input type="search" placeholder="Order zoeken…" aria-label="Order zoeken" readonly />
+          <kbd class="dist-search__kbd">⌘ K</kbd>
+        </div>
+      </header>
+
+      <div class="dist-stats">
+        <article class="dist-stat">
+          <div class="dist-stat__icon dist-stat__icon--route" aria-hidden="true"></div>
+          <div class="dist-stat__content">
+            <p class="dist-stat__label">Routevoortgang</p>
+            <p class="dist-stat__value" data-dist-progress-text>—</p>
+            <div class="dist-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="dist-progress__bar" data-dist-progress style="width: 0%"></div>
+            </div>
+            <span class="dist-stat__meta">33%</span>
+          </div>
+        </article>
+        <article class="dist-stat">
+          <div class="dist-stat__icon dist-stat__icon--clock" aria-hidden="true"></div>
+          <div class="dist-stat__content">
+            <p class="dist-stat__label">Volgende bezorging</p>
+            <p class="dist-stat__value">09:30 — over 18 min</p>
+          </div>
+        </article>
+        <article class="dist-stat dist-stat--link">
+          <div class="dist-stat__icon dist-stat__icon--box" aria-hidden="true"></div>
+          <div class="dist-stat__content">
+            <p class="dist-stat__label">Spoedorders</p>
+            <p class="dist-stat__value" data-dist-spoed-count>—</p>
+          </div>
+          <span class="dist-chevron" aria-hidden="true"></span>
+        </article>
+      </div>
+
+      <div class="dist-main">
+        <section class="dist-route-panel">
+          <header class="dist-route-head">
+            <div>
+              <h2 class="dist-panel-title">Route van vandaag</h2>
+              <p class="dist-route-meta">Amsterdam-West · 6 stops · 24 km</p>
+            </div>
+            <button type="button" class="dist-btn dist-btn--ghost dist-btn--sm">
+              <span class="dist-btn__map-icon" aria-hidden="true"></span>
+              Bekijk kaart
+            </button>
+          </header>
+
+          <ol class="dist-stops" data-dist-stops></ol>
+        </section>
+
+        <aside class="dist-detail-panel">
+          <p class="dist-detail-kicker">Volgende stop</p>
+          <h2 class="dist-detail-name" data-dist-detail-name>—</h2>
+          <p class="dist-detail-order" data-dist-detail-order>—</p>
+
+          <div class="dist-map" aria-hidden="true">
+            <div class="dist-map__grid"></div>
+            <span class="dist-map__pin"></span>
+            <span class="dist-map__label">Amsterdam-West</span>
+          </div>
+
+          <p class="dist-address" data-dist-address>
+            <span class="dist-address__icon" aria-hidden="true"></span>
+            —
+          </p>
+
+          <div class="dist-detail-grid">
+            <div>
+              <span class="dist-detail-label">Levermoment</span>
+              <span class="dist-detail-value" data-dist-levermoment>—</span>
+            </div>
+            <div>
+              <span class="dist-detail-label">Pakketten</span>
+              <span class="dist-detail-value">2 stuks</span>
+            </div>
+          </div>
+
+          <button type="button" class="dist-btn dist-btn--primary">
+            <span class="dist-btn__nav-icon" aria-hidden="true"></span>
+            Start navigatie
+          </button>
+          <button type="button" class="dist-btn dist-btn--outline" data-dist-bel>
+            <span class="dist-btn__phone-icon" aria-hidden="true"></span>
+            Bel klant
+          </button>
+
+          <div class="dist-status-update">
+            <p class="dist-status-update__title">Bezorgstatus bijwerken</p>
+            <div class="dist-status-actions">
+              <button type="button" class="dist-status-btn" data-dist-afgeleverd>
+                <span class="dist-status-btn__check" aria-hidden="true"></span>
+                Afgeleverd
+              </button>
+              <button type="button" class="dist-status-btn" data-dist-niet-aanwezig>
+                <span class="dist-status-btn__clock" aria-hidden="true"></span>
+                Later terug
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div></body>
+</html>

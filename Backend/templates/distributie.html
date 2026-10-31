@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Distributie</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body class="dist-body">
+    {% include '_header.html' %}
+    <div class="dist-root">
+      <p class="screen-id screen-id--dist" aria-hidden="true">4.2.1</p>
+      <header class="dist-top">
+        <div class="dist-top__intro">
+          <p class="dist-date">{{ dagregel }}</p>
+          <h1 class="dist-greeting">Goedemorgen, {{ koerier_naam }}</h1>
+        </div>
+        <form method="get" action="{{ url_for('web.distributie_page') }}" class="dist-search" role="search">
+          <span class="dist-search__icon" aria-hidden="true"></span>
+          <label class="visually-hidden" for="dist-datum">Datum</label>
+          <input id="dist-datum" type="date" name="datum" value="{{ datum }}" aria-label="Datum rooster" />
+          <button type="submit" class="wf-btn wf-btn--sm dist-btn--ghost">Toon rooster</button>
+        </form>
+      </header>
+
+      <div class="dist-stats">
+        <article class="dist-stat">
+          <div class="dist-stat__icon" aria-hidden="true"></div>
+          <div class="dist-stat__content">
+            <p class="dist-stat__label">Routevoortgang</p>
+            <p class="dist-stat__value">{{ delivered }} van {{ total }} bezorgd</p>
+            {% if total %}
+            <div class="dist-progress" role="progressbar" aria-valuenow="{{ progress_pct }}" aria-valuemin="0" aria-valuemax="100">
+              <div class="dist-progress__bar" style="width: {{ progress_pct }}%"></div>
+            </div>
+            {% endif %}
+          </div>
+          {% if total %}<span class="dist-stat__meta">{{ progress_pct }}%</span>{% endif %}
+        </article>
+        <article class="dist-stat">
+          <div class="dist-stat__icon" aria-hidden="true"></div>
+          <div class="dist-stat__content">
+            <p class="dist-stat__label">Volgende bezorging</p>
+            <p class="dist-stat__value">
+              {% if next_stop %}{{ next_stop.levertijd }} · {{ next_stop.klantnaam }}{% else %}—{% endif %}
+            </p>
+          </div>
+        </article>
+        <article class="dist-stat dist-stat--link">
+          <div class="dist-stat__icon" aria-hidden="true"></div>
+          <div class="dist-stat__content">
+            <p class="dist-stat__label">Spoedorders</p>
+            <p class="dist-stat__value">{{ spoed_open }} open{% if spoed_open == 1 %}e{% endif %} spoed</p>
+          </div>
+          <span class="dist-chevron" aria-hidden="true"></span>
+        </article>
+      </div>
+
+      <div class="dist-main">
+        <section class="dist-route-panel">
+          <div class="dist-route-head">
+            <div>
+              <h2 class="dist-panel-title">Route van vandaag</h2>
+              <p class="dist-route-meta">{{ total }} stops · datum {{ datum }}</p>
+            </div>
+          </div>
+          <ol class="dist-stops">
+            {% for s in stops %}
+            <li class="dist-stop{% if active_stop and s.levering_id == active_stop.levering_id %} dist-stop--active{% elif s.terugkomen_zelfde_dag %} dist-stop--return{% endif %}">
+              <div class="dist-stop__num">{{ loop.index }}</div>
+              <div class="dist-stop__times">
+                <span class="dist-stop__time">{{ s.levertijd or '—' }}</span>
+              </div>
+              <div class="dist-stop__info">
+                <strong>{{ s.contactpersoon }}</strong>
+                {% if s.spoed %}<span class="dist-badge-spoed">SPOED</span>{% endif %}
+                <span>{{ s.klantnaam }}</span>
+                <span>{{ s.adres }}</span>
+                <span class="dist-stop__window">{{ s.telefoonnummer }} · {{ s.dagdeel }}</span>
+              </div>
+              <a class="dist-pill{% if s.status_label == 'Later vandaag' %} dist-pill--dashed{% elif active_stop and s.levering_id == active_stop.levering_id %} dist-pill--active{% endif %}"
+                 href="{{ url_for('web.distributie_page', datum=datum, stop=s.levering_id) }}">{{ s.status_label }}</a>
+            </li>
+            {% else %}
+            <li>Geen leveringen op deze datum. Kies bijv. 2026-10-31.</li>
+            {% endfor %}
+          </ol>
+        </section>
+
+        <aside class="dist-detail-panel">
+          {% if active_stop %}
+          <p class="dist-detail-kicker">Volgende stop</p>
+          <h2 class="dist-detail-name">{{ active_stop.contactpersoon }}</h2>
+          <p class="dist-detail-order">ORD-{{ active_stop.ordernummer }} · {{ active_stop.klantnaam }}</p>
+          <div class="dist-map" aria-hidden="true">
+            <div class="dist-map__grid"></div>
+            <div class="dist-map__pin"></div>
+            <span class="dist-map__label">{{ active_stop.klantnaam }}</span>
+          </div>
+          <p class="dist-address">
+            <span class="dist-address__icon" aria-hidden="true"></span>
+            <span>{{ active_stop.adres }}</span>
+          </p>
+          <div class="dist-detail-grid">
+            <div>
+              <span class="dist-detail-label">Telefoonnummer</span>
+              <span class="dist-detail-value">{{ active_stop.telefoonnummer }}</span>
+            </div>
+            <div>
+              <span class="dist-detail-label">Contactpersoon</span>
+              <span class="dist-detail-value">{{ active_stop.contactpersoon }}</span>
+            </div>
+            <div>
+              <span class="dist-detail-label">Levertijd</span>
+              <span class="dist-detail-value">{{ active_stop.levertijd or '—' }}</span>
+            </div>
+            <div>
+              <span class="dist-detail-label">Pogingen</span>
+              <span class="dist-detail-value">{{ active_stop.pogingen }}</span>
+            </div>
+          </div>
+          <a class="dist-btn dist-btn--outline" href="tel:{{ active_stop.telefoonnummer|replace(' ', '')|replace('-', '') }}">Bel klant</a>
+
+          {% if active_stop.order_status != 'NOT_DELIVERED' and not active_stop.afgeleverd %}
+          <div class="dist-status-update">
+            <p class="dist-status-update__title">Bezorgstatus bijwerken</p>
+            <div class="dist-status-actions">
+              <form method="post" action="{{ url_for('web.distributie_delivered', levering_id=active_stop.levering_id) }}">
+                <input type="hidden" name="datum" value="{{ datum }}" />
+                <input type="hidden" name="stop" value="{{ active_stop.levering_id }}" />
+                <button type="submit" class="dist-status-btn">✓ Afgeleverd</button>
+              </form>
+              {% if active_stop.is_terugkeer %}
+              <form method="post" action="{{ url_for('web.distributie_niet_afgeleverd', levering_id=active_stop.levering_id) }}">
+                <input type="hidden" name="datum" value="{{ datum }}" />
+                <input type="hidden" name="stop" value="{{ active_stop.levering_id }}" />
+                <button type="submit" class="dist-status-btn">✕ Niet afgeleverd</button>
+              </form>
+              {% else %}
+              <form method="post" action="{{ url_for('web.distributie_absent', levering_id=active_stop.levering_id) }}">
+                <input type="hidden" name="datum" value="{{ datum }}" />
+                <input type="hidden" name="stop" value="{{ active_stop.levering_id }}" />
+                <button type="submit" class="dist-status-btn">🕒 Later terug (niet aanwezig)</button>
+              </form>
+              {% endif %}
+            </div>
+          </div>
+          {% elif active_stop.afgeleverd %}
+          <p class="m-hint">Deze stop is afgeleverd.</p>
+          {% else %}
+          <p class="m-hint">Niet afgeleverd — geen verdere acties.</p>
+          {% endif %}
+          {% else %}
+          <p class="m-hint">Selecteer een stop in de route of kies een datum met leveringen.</p>
+          {% endif %}
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+-- Deprecated: use ../../timaflu_schema.sql in the project root.

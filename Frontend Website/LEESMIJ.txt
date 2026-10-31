@@ -1,0 +1,11 @@
+Timaflu frontend (HTML + CSS only, geen JavaScript).
+
+Database: timaflu_schema.sql + timaflu_seed.sql (projectmap).
+
+Voor live data uit MySQL: start de Python-backend:
+  cd Backend
+  python app.py
+Open http://127.0.0.1:5000/
+
+De backend rendert dezelfde schermen server-side (Backend/templates/) met formulieren en links.
+Deze map levert vooral styles.css en het visuele ontwerp voor inlevering.

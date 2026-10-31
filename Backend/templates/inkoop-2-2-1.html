@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Purchasing</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body class="pur-body">
+    {% include '_header.html' %}
+    <div class="wf-root pur-root">
+      <div class="pur-board pur-board--wire">
+        <header class="pur-header-bar">Timaflu - Purchasing</header>
+        <div class="pur-panel">
+          <p class="screen-id screen-id--dual" aria-hidden="true"><span class="screen-id__d">2.2.1</span><span class="screen-id__m">2.2.4</span></p>
+          <h1 class="pur-title">Products below minimum stock</h1>
+          {% if msg %}
+          <p class="m-msg m-msg--ok" role="status">{{ msg }}</p>
+          {% endif %}
+          <section class="pur-subsection" aria-labelledby="pur-niet-op-voorraad">
+            <h2 id="pur-niet-op-voorraad" class="pur-subtitle">Product niet op voorraad</h2>
+            <p class="pur-lead">Invoer: productnaam → lijst leveranciers (contact + telefoon, goedkoopst eerst).</p>
+            <form method="post" action="{{ url_for('web.inkoop_search_product') }}" class="pur-search">
+              <label class="wf-label" for="pur-zoek-naam">Productnaam</label>
+              <div class="pur-search__row">
+                <input class="wf-input" id="pur-zoek-naam" type="search" name="productnaam"
+                       placeholder="bijv. Ibuprofen 400 mg" required />
+                <button type="submit" class="wf-btn wf-btn--pur-wire">Leveranciers</button>
+              </div>
+            </form>
+          </section>
+          <ul class="pur-mobile-list">
+            {% for p in products %}
+            <li class="pur-mobile-card">
+              <h2 class="pur-mobile-card__title">{{ p.naam }}</h2>
+              <dl class="pur-mobile-card__meta">
+                <div><dt>Current stock</dt><dd>{{ p.voorraad }}</dd></div>
+                <div><dt>Minimum stock</dt><dd>{{ p.minimum_voorraad }}</dd></div>
+              </dl>
+              <a href="{{ url_for('web.inkoop_suppliers', product=p.naam, code=p.bestelcode) }}" class="wf-btn wf-btn--pur-wire wf-btn--block">Select</a>
+            </li>
+            {% else %}
+            <li class="m-hint">No products below minimum stock.</li>
+            {% endfor %}
+          </ul>
+          <div class="d-table-wrap pur-desktop-table">
+            <table class="d-table pur-table pur-table--wire">
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col" class="num">Current stock</th>
+                  <th scope="col" class="num">Minimum stock</th>
+                  <th scope="col" class="pur-col-action"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for p in products %}
+                <tr>
+                  <td>{{ p.naam }}</td>
+                  <td class="num">{{ p.voorraad }}</td>
+                  <td class="num">{{ p.minimum_voorraad }}</td>
+                  <td class="pur-col-action">
+                    <a href="{{ url_for('web.inkoop_suppliers', product=p.naam, code=p.bestelcode) }}" class="wf-btn wf-btn--pur-wire">Select</a>
+                  </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No products below minimum stock.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

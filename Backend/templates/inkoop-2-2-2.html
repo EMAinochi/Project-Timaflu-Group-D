@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Timaflu — Inkoop leveranciers</title>
+    <link rel="stylesheet" href="{{ url_for('web.styles_css') }}" />
+  </head>
+  <body class="pur-body">
+    {% include '_header.html' %}
+    <div class="wf-root pur-root">
+      <div class="pur-board pur-board--wire">
+        <header class="pur-header-bar">Timaflu - Purchasing</header>
+        <div class="pur-panel">
+          <p class="screen-id screen-id--dual" aria-hidden="true"><span class="screen-id__d">2.2.2</span><span class="screen-id__m">2.2.5</span></p>
+          <h1 class="pur-title">Leveranciers — {{ title_product }}</h1>
+          <p class="pur-lead">Product niet op voorraad: invoer productnaam → leveranciers (goedkoopst bovenaan).</p>
+
+          <form method="post" action="{{ url_for('web.inkoop_search_product') }}" class="pur-search">
+            <label class="wf-label" for="pur-productnaam">Productnaam</label>
+            <div class="pur-search__row">
+              <input class="wf-input" id="pur-productnaam" type="search" name="productnaam"
+                     value="{{ product_query }}" placeholder="bijv. Ibuprofen 400 mg" required />
+              <button type="submit" class="wf-btn wf-btn--pur-wire">Zoeken</button>
+            </div>
+          </form>
+
+          {% if msg %}
+          <p class="m-msg m-msg--ok" role="status">{{ msg }}</p>
+          {% endif %}
+          {% if err %}
+          <p class="m-msg m-msg--err" role="alert">{{ err }}</p>
+          {% endif %}
+
+          <ul class="pur-mobile-list">
+            {% for s in suppliers %}
+            <li class="pur-mobile-card">
+              <h2 class="pur-mobile-card__title">{{ s.leverancier }}</h2>
+              <p class="pur-mobile-card__sub">{{ euro(s.inkoopprijs) }} · {{ s.contactpersoon }}</p>
+              <p class="pur-mobile-card__sub">{{ s.telefoonnummer }}</p>
+              <form method="post" action="{{ url_for('web.inkoop_place_order') }}">
+                <input type="hidden" name="bestelcode" value="{{ s.bestelcode }}" />
+                <input type="hidden" name="fabrikant_id" value="{{ s.fabrikant_id }}" />
+                <input type="hidden" name="productnaam" value="{{ s.productnaam }}" />
+                <input type="hidden" name="aantal" value="50" />
+                <button type="submit" class="wf-btn wf-btn--pur-wire wf-btn--block">Place order</button>
+              </form>
+            </li>
+            {% else %}
+            <li class="m-hint">Geen leveranciers voor dit product.</li>
+            {% endfor %}
+          </ul>
+          <div class="d-table-wrap pur-desktop-table">
+            <table class="d-table pur-table pur-table--wire pur-table--suppliers">
+              <thead>
+                <tr>
+                  <th scope="col">Leverancier</th>
+                  <th scope="col" class="num">Inkoopprijs</th>
+                  <th scope="col">Contactpersoon</th>
+                  <th scope="col">Telefoonnummer</th>
+                  <th scope="col" class="pur-col-action">Acties</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for s in suppliers %}
+                <tr>
+                  <td>{{ s.leverancier }}</td>
+                  <td class="num">{{ euro(s.inkoopprijs) }}</td>
+                  <td>{{ s.contactpersoon }}</td>
+                  <td>{{ s.telefoonnummer }}</td>
+                  <td class="pur-col-action">
+                    <div class="pur-actions-wrap">
+                      <form method="post" action="{{ url_for('web.inkoop_place_order') }}">
+                        <input type="hidden" name="bestelcode" value="{{ s.bestelcode }}" />
+                        <input type="hidden" name="fabrikant_id" value="{{ s.fabrikant_id }}" />
+                        <input type="hidden" name="productnaam" value="{{ s.productnaam }}" />
+                        <input type="hidden" name="aantal" value="50" />
+                        <button type="submit" class="wf-btn wf-btn--pur-wire wf-btn--sm">Place order</button>
+                      </form>
+                      <form method="post" action="{{ url_for('web.inkoop_remove_supplier') }}">
+                        <input type="hidden" name="productnaam" value="{{ s.productnaam }}" />
+                        <input type="hidden" name="fabrikant_id" value="{{ s.fabrikant_id }}" />
+                        <button type="submit" class="wf-btn wf-btn--sm wf-btn--pur-outline">Leverancier loskoppelen</button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5">Geen leveranciers voor dit product.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          {% if bestelcode or product_query %}
+          <form method="post" action="{{ url_for('web.inkoop_delete_product') }}" class="pur-danger-form">
+            <input type="hidden" name="productnaam" value="{{ title_product }}" />
+            <button type="submit" class="wf-btn wf-btn--sm wf-btn--pur-outline">Product verwijderen uit assortiment</button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
