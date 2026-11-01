@@ -112,3 +112,7 @@ INSERT INTO visit (account_manager_id, company_name, contact_person, phone_numbe
 (1, 'Apotheek West', 'Mirjam Hoek', '06-77889900', 13, '2026-08-15', NULL),
 (1, 'Apotheek Rivier', 'Chris Meijer', '06-88990011', 14, '2026-07-01', NULL),
 (1, 'Apotheek De Linge', 'Sanne Visser', '06-11223344', 1, '2026-09-01', 1);
+
+INSERT INTO visit_follow_up (visit_id, follow_up_date, notes) VALUES
+(1, '2026-09-20', 'Tweede bezoek: interesse in paracetamol en ibuprofen, nog geen bestelling.'),
+(2, '2026-08-12', 'Telefonisch nagebeld; contactpersoon was afwezig, nieuwe afspraak gemaakt.');

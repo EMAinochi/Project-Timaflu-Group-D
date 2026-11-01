@@ -132,7 +132,8 @@ cd Backend
 python run_demo.py
 ```
 
-SQL-voorbeelden voor documentatie: **`timaflu_queries.md`** (project root).
+SQL-voorbeelden: **`timaflu_queries.md`**.  
+Inleverdocument schermen + queries + output: **`Documentatie/Timaflu-schermen-en-queries.md`**.
 
 ---
 
@@ -169,3 +170,4 @@ Opnieuw `pip install -r requirements.txt` en indien nodig database opnieuw seede
 
 - API-endpoints: [Backend/README.md](Backend/README.md)
 - Scherm ↔ wireframe: [Schermontwerpen/README.md](Schermontwerpen/README.md)
+- Schermen + queries + output: [Documentatie/Timaflu-schermen-en-queries.md](Documentatie/Timaflu-schermen-en-queries.md)
